@@ -4,7 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Generate beautiful multiplication tables side by side — fast, clean, and professional.">
+    <meta name="description"
+        content="Generate beautiful multiplication tables side by side — fast, clean, and professional.">
     <title>Multiplication Table Generator</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,7 +14,7 @@
 </head>
 
 <body>
-
+    <p>HCL</p>
     <!-- ===== Hero Header ===== -->
     <header class="site-header">
         <div class="header-inner">
@@ -38,16 +39,8 @@
                 <div class="input-row">
                     <div class="input-wrap">
                         <span class="input-icon">#</span>
-                        <input
-                            type="number"
-                            id="number"
-                            placeholder="e.g. 12"
-                            min="1"
-                            max="1000"
-                            step="1"
-                            required
-                            autocomplete="off"
-                        >
+                        <input type="number" id="number" placeholder="e.g. 12" min="1" max="1000" step="1" required
+                            autocomplete="off">
                     </div>
                     <button type="submit" id="generateBtn">
                         <span class="btn-label">Generate</span>
@@ -63,17 +56,17 @@
     </main>
 
     <script>
-        const form        = document.getElementById("tableForm");
-        const input       = document.getElementById("number");
-        const output      = document.getElementById("output");
-        const errorEl     = document.getElementById("error");
+        const form = document.getElementById("tableForm");
+        const input = document.getElementById("number");
+        const output = document.getElementById("output");
+        const errorEl = document.getElementById("error");
         const generateBtn = document.getElementById("generateBtn");
 
         form.addEventListener("submit", function (e) {
             e.preventDefault();
 
             const raw = input.value.trim();
-            const a   = Number(raw);
+            const a = Number(raw);
 
             if (raw === "" || !Number.isInteger(a) || a < 1 || a > 1000) {
                 errorEl.textContent = "Please enter a whole number between 1 and 1,000.";
@@ -118,4 +111,5 @@
     </script>
 
 </body>
+
 </html>
