@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Generate beautiful multiplication tables side by side — fast, clean, and professional.">
+    <title>Multiplication Table Generator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <!-- ===== Hero Header ===== -->
+    <header class="site-header">
+        <div class="header-inner">
+            <div class="logo">
+                <span class="logo-icon">&#10005;</span>
+                <span class="logo-text">MultiTable</span>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== Main Content ===== -->
+    <main class="main-wrapper">
+        <section class="hero">
+            <h1 class="hero-title">Multiplication Table <span class="accent">Generator</span></h1>
+            <p class="hero-sub">Enter any integer up to 1,000 and get crisp, side-by-side tables instantly.</p>
+        </section>
+
+        <!-- Form Card -->
+        <div class="form-card">
+            <form id="tableForm" novalidate>
+                <label for="number" class="field-label">Enter a positive integer</label>
+                <div class="input-row">
+                    <div class="input-wrap">
+                        <span class="input-icon">#</span>
+                        <input
+                            type="number"
+                            id="number"
+                            placeholder="e.g. 12"
+                            min="1"
+                            max="1000"
+                            step="1"
+                            required
+                            autocomplete="off"
+                        >
+                    </div>
+                    <button type="submit" id="generateBtn">
+                        <span class="btn-label">Generate</span>
+                        <span class="btn-arrow">&#8594;</span>
+                    </button>
+                </div>
+                <p id="error" class="error-msg" role="alert" aria-live="polite"></p>
+            </form>
+        </div>
+
+        <!-- Output area -->
+        <section id="output" aria-label="Generated tables"></section>
+    </main>
+
+    <script>
+        const form        = document.getElementById("tableForm");
+        const input       = document.getElementById("number");
+        const output      = document.getElementById("output");
+        const errorEl     = document.getElementById("error");
+        const generateBtn = document.getElementById("generateBtn");
+
+        form.addEventListener("submit", function (e) {
+            e.preventDefault();
+
+            const raw = input.value.trim();
+            const a   = Number(raw);
+
+            if (raw === "" || !Number.isInteger(a) || a < 1 || a > 1000) {
+                errorEl.textContent = "Please enter a whole number between 1 and 1,000.";
+                output.innerHTML = "";
+                return;
+            }
+
+            errorEl.textContent = "";
+            generateBtn.classList.add("loading");
+
+            setTimeout(function () {
+                var html = '<div class="tables-grid">';
+
+                for (var i = 1; i <= a; i++) {
+                    html += '<div class="table-card">';
+                    html += '<div class="table-card-header">';
+                    html += '<span class="table-badge">' + i + '</span>';
+                    html += '<h2 class="table-title">Table of ' + i + '</h2>';
+                    html += '</div>';
+                    html += '<div class="table-scroll">';
+                    html += '<table>';
+                    html += '<thead><tr><th>#</th><th>Expression</th><th>Result</th></tr></thead>';
+                    html += '<tbody>';
+
+                    for (var j = 1; j <= 10; j++) {
+                        html += '<tr>';
+                        html += '<td class="col-num">' + j + '</td>';
+                        html += '<td class="col-expr">' + i + ' &times; ' + j + '</td>';
+                        html += '<td class="col-result">' + (i * j) + '</td>';
+                        html += '</tr>';
+                    }
+
+                    html += '</tbody></table></div></div>';
+                }
+
+                html += '</div>';
+                output.innerHTML = html;
+                generateBtn.classList.remove("loading");
+                output.scrollIntoView({ behavior: "smooth", block: "start" });
+            }, 200);
+        });
+    </script>
+
+</body>
+</html>
